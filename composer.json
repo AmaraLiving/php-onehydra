@@ -1,0 +1,12 @@
+{
+    "name": "amara/onehydra",
+    "require": {
+        "pimple/pimple": "~3.0"
+    },
+    "authors": [
+        {
+            "name": "Vincenzo Trapani",
+            "email": "vincenzo.trapani@amara.com"
+        }
+    ]
+}
