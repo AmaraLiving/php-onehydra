@@ -27,6 +27,10 @@ class PageObject {
 	/** @var \stdClass */
 	private $serverSide;
 
+	CONST MAIN_LINKS_SECTION = 'main links';
+
+	CONST RELEATED_LINKS_SECTION = 'releated links';
+
 	/**
 	 * @return \stdClass
 	 */
@@ -123,5 +127,36 @@ class PageObject {
 		$this->serverSide = $serverSide;
 
 		return $this;
+	}
+
+	/**
+	 * @return array
+	 */
+	public function getMainLinks() {
+		return $this->getLinkSection(PageObject::MAIN_LINKS_SECTION);
+	}
+
+	/**
+	 * @return array
+	 */
+	public function getReleatedLinks() {
+		return $this->getLinkSection(PageObject::RELEATED_LINKS_SECTION);
+	}
+
+	/**
+	 * @param string $section
+	 * @return array
+	 */
+	private function getLinkSection($section) {
+
+		if (isset($this->PageObject->Links) && is_array($this->PageObject->Links)){
+			foreach($this->PageObject->Links as $section) {
+				if ($section === strtolower($section->Key)) {
+					return $section->Value;
+				}
+			}
+		}
+
+		return [];
 	}
 }
