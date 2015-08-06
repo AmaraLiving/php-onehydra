@@ -139,7 +139,7 @@ class PageObject {
 	/**
 	 * @return array
 	 */
-	public function getReleatedLinks() {
+	public function getRelatedLinks() {
 		return $this->getLinkSection(PageObject::RELEATED_LINKS_SECTION);
 	}
 
