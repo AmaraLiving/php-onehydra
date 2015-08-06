@@ -29,7 +29,7 @@ class PageObject {
 
 	CONST MAIN_LINKS_SECTION = 'main links';
 
-	CONST RELEATED_LINKS_SECTION = 'releated links';
+	CONST RELEATED_LINKS_SECTION = 'related links';
 
 	/**
 	 * @return \stdClass
