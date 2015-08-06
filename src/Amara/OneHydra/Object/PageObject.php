@@ -150,7 +150,7 @@ class PageObject {
 	private function getLinkSection($section) {
 
 		if (is_array($this->links)){
-			foreach($this->Links as $section) {
+			foreach($this->links as $section) {
 				if ($section === strtolower($section->Key)) {
 					return $section->Value;
 				}
