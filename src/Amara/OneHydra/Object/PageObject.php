@@ -109,6 +109,13 @@ class PageObject {
 	}
 
 	/**
+	 * @return array
+	 */
+	public function getServerSide() {
+		return $this->serverSide;
+	}
+
+	/**
 	 * @param mixed $serverSide
 	 * @return $this
 	 */
