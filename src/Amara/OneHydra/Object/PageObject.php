@@ -29,7 +29,7 @@ class PageObject {
 
 	CONST MAIN_LINKS_SECTION = 'main links';
 
-	CONST RELEATED_LINKS_SECTION = 'related links';
+	CONST RELATED_LINKS_SECTION = 'related links';
 
 	/**
 	 * @return \stdClass
@@ -140,7 +140,7 @@ class PageObject {
 	 * @return array
 	 */
 	public function getRelatedLinks() {
-		return $this->getLinkSection(PageObject::RELEATED_LINKS_SECTION);
+		return $this->getLinkSection(PageObject::RELATED_LINKS_SECTION);
 	}
 
 	/**
