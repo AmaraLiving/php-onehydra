@@ -179,4 +179,18 @@ class PageObject {
 	public function getTitle() {
 		return $this->getHeadContent()->Title;
 	}
+
+	/**
+	 * @return string
+	 */
+	public function getRedirectCode() {
+		return $this->serverSide->RedirectCode;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getRedirectUrl() {
+		return $this->serverSide->RedirectTargetUrl;
+	}
 }
