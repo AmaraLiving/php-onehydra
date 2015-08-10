@@ -158,4 +158,25 @@ class PageObject {
 
 		return [];
 	}
+
+	/**
+	 * @return string
+	 */
+	public function getDescription() {
+		return $this->getHeadContent()->MetaDescription;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getKeywords() {
+		return $this->getHeadContent()->MetaKeywords;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getTitle() {
+		return $this->getHeadContent()->Title;
+	}
 }
