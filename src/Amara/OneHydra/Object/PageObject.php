@@ -193,4 +193,12 @@ class PageObject {
 	public function getRedirectUrl() {
 		return $this->serverSide->RedirectTargetUrl;
 	}
+
+	/**
+	 * @return bool
+	 */
+	public function isSuggested() {
+		return ('suggested' === strtolower($this->serverSide->PageOrigin));
+	}
+
 }
