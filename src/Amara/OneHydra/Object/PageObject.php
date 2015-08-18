@@ -211,7 +211,7 @@ class PageObject {
 	/**
 	 * @return string
 	 */
-	public function getMetaRobots() {
+	public function getRobots() {
 		return $this->headInstructions->MetaRobots;
 	}
 
