@@ -201,4 +201,25 @@ class PageObject {
 		return ('suggested' === strtolower($this->serverSide->PageOrigin));
 	}
 
+	/**
+	 * @return string
+	 */
+	public function getCanonicalUrl() {
+		return $this->headInstructions->CanonicalUrl;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getMetaRobot() {
+		return $this->headInstructions->MetaRobots;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getAbstract() {
+		return $this->pageContent->Abstract;
+	}
+
 }
