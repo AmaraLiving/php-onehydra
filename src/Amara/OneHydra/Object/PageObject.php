@@ -222,4 +222,11 @@ class PageObject {
 		return $this->pageContent->Abstract;
 	}
 
+	/**
+	 * @return string
+	 */
+	public function getH1() {
+		return $this->pageContent->H1;
+	}
+
 }
