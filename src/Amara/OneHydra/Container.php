@@ -9,7 +9,7 @@ namespace Amara\OneHydra;
 
 use Guzzle\Http\Client;
 use Pimple\Container as C;
-
+use Api\Api as Api;
 
 class Container {
 
@@ -57,12 +57,12 @@ class Container {
 			if (!Api::$isSecure) {
 				$client->setDefaultOption('verify', false);
 			}
-	
+
 			return $client;
 		};
 
 		self::$container['api'] = function ($c) {
-			return (new Api\Api())->setClient($c['client']);
+			return (new Api())->setClient($c['client']);
 		};
 	}
 
