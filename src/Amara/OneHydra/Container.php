@@ -9,7 +9,7 @@ namespace Amara\OneHydra;
 
 use Guzzle\Http\Client;
 use Pimple\Container as C;
-use Api\Api as Api;
+use Amara\OneHydra\Api as Api;
 
 class Container {
 
