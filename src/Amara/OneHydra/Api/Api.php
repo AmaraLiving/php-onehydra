@@ -31,14 +31,23 @@ class Api {
 		]
 	];
 
+	/** @var bool **/
+	public static $useStaging = false;
+
 	/** @var string */
 	private $baseUrl = 'https://seoapi.onehydra.com';
+
+	/** @var string */
+	private $baseUrlStaging = 'https://uat.seoapi.onehydra.com';
 
 	/** @var Client */
 	private $client;
 
 	/** @var string */
 	private $authToken;
+
+	/** @var bool */
+	public static $isSecure = true;
 
 	/**
 	 * @param string $baseUrl
@@ -124,7 +133,7 @@ class Api {
 	 * @return string
 	 */
 	private function buildServiceUrl(RequestInterface $request) {
-		return implode('/', [$this->baseUrl, API::API_VERSION, $request->getService()]);
+		return implode('/', [(!Api::$useStaging) ? ($this->baseUrl) : ($this->baseUrlStaging), API::API_VERSION, $request->getService()]);
 	}
 
 	/**

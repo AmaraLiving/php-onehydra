@@ -52,7 +52,13 @@ class Container {
 		};
 
 		self::$container['client'] = function () {
-			return new Client();
+			$client = new Client();
+
+			if (!Api::$isSecure) {
+				$client->setDefaultOption('verify', false);
+			}
+	
+			return $client;
 		};
 
 		self::$container['api'] = function ($c) {
