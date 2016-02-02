@@ -147,7 +147,7 @@ class PageObject implements PageObjectInterface {
 	 * @param string $section
 	 * @return array
 	 */
-	private function getLinkSection($section) {
+	public function getLinkSection($section) {
 		if (is_array($this->links)){
 			foreach($this->links as $s) {
 				if ($section === strtolower($s->Key)) {
