@@ -27,10 +27,6 @@ class PageObject implements PageObjectInterface {
 	/** @var \stdClass */
 	private $serverSide;
 
-	CONST MAIN_LINKS_SECTION = 'main links';
-
-	CONST RELATED_LINKS_SECTION = 'related links';
-
 	/**
 	 * @return \stdClass
 	 */
@@ -133,14 +129,14 @@ class PageObject implements PageObjectInterface {
 	 * @return array
 	 */
 	public function getMainLinks() {
-		return $this->getLinkSection(PageObject::MAIN_LINKS_SECTION);
+		return $this->getLinkSection(PageObjectInterface::MAIN_LINKS_SECTION);
 	}
 
 	/**
 	 * @return array
 	 */
 	public function getRelatedLinks() {
-		return $this->getLinkSection(PageObject::RELATED_LINKS_SECTION);
+		return $this->getLinkSection(PageObjectInterface::RELATED_LINKS_SECTION);
 	}
 
 	/**

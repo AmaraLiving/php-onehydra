@@ -6,6 +6,11 @@
 namespace Amara\OneHydra\Object;
 
 interface PageObjectInterface {
+
+	CONST MAIN_LINKS_SECTION = 'main links';
+
+	CONST RELATED_LINKS_SECTION = 'related links';
+
 	/**
 	 * @return \stdClass
 	 */
