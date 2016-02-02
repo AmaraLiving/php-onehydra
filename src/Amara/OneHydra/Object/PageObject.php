@@ -7,7 +7,7 @@
  */
 namespace Amara\OneHydra\Object;
 
-class PageObject {
+class PageObject implements PageObjectInterface {
 
 	/** @var \stdClass */
 	private $headContent;
