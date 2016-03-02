@@ -1,18 +1,18 @@
 {
-    "name": "amara/onehydra",
-    "require": {
-        "pimple/pimple": "~3.0",
-        "guzzle/http": "3.8.*"
-    },
-    "autoload": {
-      "psr-0": {
-        "Amara\\OneHydra\\": "src"
-      }
-    },
-    "authors": [
-        {
-            "name": "Vincenzo Trapani",
-            "email": "vincenzo.trapani@amara.com"
-        }
-    ]
+  "name": "amara/onehydra",
+  "require": {
+    "pimple/pimple": "~3.0",
+    "guzzle/http": "3.8.*"
+  },
+  "autoload": {
+    "psr-0": {
+      "Amara\\OneHydra\\": "src"
+    }
+  },
+  "authors": [
+    {
+      "name": "Vincenzo Trapani",
+      "email": "vincenzo.trapani@amara.com"
+    }
+  ]
 }
