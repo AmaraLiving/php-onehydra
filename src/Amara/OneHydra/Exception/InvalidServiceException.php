@@ -8,6 +8,7 @@
 
 namespace Amara\OneHydra\Exception;
 
-class InvalidServiceException extends \Exception {
+class InvalidServiceException extends \Exception
+{
 
 }

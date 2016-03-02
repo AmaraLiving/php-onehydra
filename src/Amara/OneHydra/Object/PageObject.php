@@ -7,222 +7,252 @@
  */
 namespace Amara\OneHydra\Object;
 
-class PageObject implements PageObjectInterface {
+class PageObject implements PageObjectInterface
+{
 
-	/** @var \stdClass */
-	private $headContent;
+    /** @var \stdClass */
+    private $headContent;
 
-	/** @var \stdClass */
-	private $headInstructions;
+    /** @var \stdClass */
+    private $headInstructions;
 
-	/** @var \stdClass */
-	private $links;
+    /** @var \stdClass */
+    private $links;
 
-	/** @var \stdClass */
-	private $pageContent;
+    /** @var \stdClass */
+    private $pageContent;
 
-	/** @var  string */
-	private $pageName;
+    /** @var  string */
+    private $pageName;
 
-	/** @var \stdClass */
-	private $serverSide;
+    /** @var \stdClass */
+    private $serverSide;
 
-	/**
-	 * @return \stdClass
-	 */
-	public function getHeadContent() {
-		return $this->headContent;
-	}
+    /**
+     * @return \stdClass
+     */
+    public function getHeadContent()
+    {
+        return $this->headContent;
+    }
 
-	/**
-	 * @param mixed $headContent
-	 * @return $this
-	 */
-	public function setHeadContent($headContent) {
-		$this->headContent = $headContent;
-		return $this;
-	}
+    /**
+     * @param mixed $headContent
+     * @return $this
+     */
+    public function setHeadContent($headContent)
+    {
+        $this->headContent = $headContent;
 
-	/**
-	 * @return \stdClass
-	 */
-	public function getHeadInstructions() {
-		return $this->headInstructions;
-	}
+        return $this;
+    }
 
-	/**
-	 * @param mixed $headInstructions
-	 * @return $this
-	 */
-	public function setHeadInstructions($headInstructions) {
-		$this->headInstructions = $headInstructions;
-		return $this;
-	}
+    /**
+     * @return \stdClass
+     */
+    public function getHeadInstructions()
+    {
+        return $this->headInstructions;
+    }
 
-	/**
-	 * @return \stdClass
-	 */
-	public function getLinks() {
-		return $this->links;
-	}
+    /**
+     * @param mixed $headInstructions
+     * @return $this
+     */
+    public function setHeadInstructions($headInstructions)
+    {
+        $this->headInstructions = $headInstructions;
 
-	/**
-	 * @param mixed $links
-	 * @return $this
-	 */
-	public function setLinks($links) {
-		$this->links = $links;
-		return $this;
-	}
+        return $this;
+    }
 
-	/**
-	 * @return \stdClass
-	 */
-	public function getPageContent() {
-		return $this->pageContent;
-	}
+    /**
+     * @return \stdClass
+     */
+    public function getLinks()
+    {
+        return $this->links;
+    }
 
-	/**
-	 * @param mixed $pageContent
-	 * @return $this
-	 */
-	public function setPageContent($pageContent) {
-		$this->pageContent = $pageContent;
-		return $this;
-	}
+    /**
+     * @param mixed $links
+     * @return $this
+     */
+    public function setLinks($links)
+    {
+        $this->links = $links;
 
-	/**
-	 * @return string
-	 */
-	public function getPageName() {
-		return $this->pageName;
-	}
+        return $this;
+    }
 
-	/**
-	 * @param string $pageName
-	 * @return $this
-	 */
-	public function setPageName($pageName) {
-		$this->pageName = $pageName;
+    /**
+     * @return \stdClass
+     */
+    public function getPageContent()
+    {
+        return $this->pageContent;
+    }
 
-		return $this;
-	}
+    /**
+     * @param mixed $pageContent
+     * @return $this
+     */
+    public function setPageContent($pageContent)
+    {
+        $this->pageContent = $pageContent;
 
-	/**
-	 * @return array
-	 */
-	public function getServerSide() {
-		return $this->serverSide;
-	}
+        return $this;
+    }
 
-	/**
-	 * @param mixed $serverSide
-	 * @return $this
-	 */
-	public function setServerSide($serverSide) {
-		$this->serverSide = $serverSide;
+    /**
+     * @return string
+     */
+    public function getPageName()
+    {
+        return $this->pageName;
+    }
 
-		return $this;
-	}
+    /**
+     * @param string $pageName
+     * @return $this
+     */
+    public function setPageName($pageName)
+    {
+        $this->pageName = $pageName;
 
-	/**
-	 * @return array
-	 */
-	public function getMainLinks() {
-		return $this->getLinkSection(PageObjectInterface::MAIN_LINKS_SECTION);
-	}
+        return $this;
+    }
 
-	/**
-	 * @return array
-	 */
-	public function getRelatedLinks() {
-		return $this->getLinkSection(PageObjectInterface::RELATED_LINKS_SECTION);
-	}
+    /**
+     * @return array
+     */
+    public function getServerSide()
+    {
+        return $this->serverSide;
+    }
 
-	/**
-	 * @param string $section
-	 * @return array
-	 */
-	public function getLinkSection($section) {
-		if (is_array($this->links)){
-			foreach($this->links as $s) {
-				if ($section === strtolower($s->Key)) {
-					return $s->Value;
-				}
-			}
-		}
+    /**
+     * @param mixed $serverSide
+     * @return $this
+     */
+    public function setServerSide($serverSide)
+    {
+        $this->serverSide = $serverSide;
 
-		return [];
-	}
+        return $this;
+    }
 
-	/**
-	 * @return string
-	 */
-	public function getDescription() {
-		return $this->getHeadContent()->MetaDescription;
-	}
+    /**
+     * @return array
+     */
+    public function getMainLinks()
+    {
+        return $this->getLinkSection(PageObjectInterface::MAIN_LINKS_SECTION);
+    }
 
-	/**
-	 * @return string
-	 */
-	public function getKeywords() {
-		return $this->getHeadContent()->MetaKeywords;
-	}
+    /**
+     * @return array
+     */
+    public function getRelatedLinks()
+    {
+        return $this->getLinkSection(PageObjectInterface::RELATED_LINKS_SECTION);
+    }
 
-	/**
-	 * @return string
-	 */
-	public function getTitle() {
-		return $this->getHeadContent()->Title;
-	}
+    /**
+     * @param string $section
+     * @return array
+     */
+    public function getLinkSection($section)
+    {
+        if (is_array($this->links)) {
+            foreach ($this->links as $s) {
+                if ($section === strtolower($s->Key)) {
+                    return $s->Value;
+                }
+            }
+        }
 
-	/**
-	 * @return string
-	 */
-	public function getRedirectCode() {
-		return $this->serverSide->RedirectCode;
-	}
+        return [];
+    }
 
-	/**
-	 * @return string
-	 */
-	public function getRedirectUrl() {
-		return $this->serverSide->RedirectTargetUrl;
-	}
+    /**
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->getHeadContent()->MetaDescription;
+    }
 
-	/**
-	 * @return bool
-	 */
-	public function isSuggested() {
-		return ('suggested' === strtolower($this->serverSide->PageOrigin));
-	}
+    /**
+     * @return string
+     */
+    public function getKeywords()
+    {
+        return $this->getHeadContent()->MetaKeywords;
+    }
 
-	/**
-	 * @return string
-	 */
-	public function getCanonicalUrl() {
-		return $this->headInstructions->CanonicalUrl;
-	}
+    /**
+     * @return string
+     */
+    public function getTitle()
+    {
+        return $this->getHeadContent()->Title;
+    }
 
-	/**
-	 * @return string
-	 */
-	public function getRobots() {
-		return $this->headInstructions->MetaRobots;
-	}
+    /**
+     * @return string
+     */
+    public function getRedirectCode()
+    {
+        return $this->serverSide->RedirectCode;
+    }
 
-	/**
-	 * @return string
-	 */
-	public function getAbstract() {
-		return $this->pageContent->Abstract;
-	}
+    /**
+     * @return string
+     */
+    public function getRedirectUrl()
+    {
+        return $this->serverSide->RedirectTargetUrl;
+    }
 
-	/**
-	 * @return string
-	 */
-	public function getH1() {
-		return $this->pageContent->H1;
-	}
+    /**
+     * @return bool
+     */
+    public function isSuggested()
+    {
+        return ('suggested' === strtolower($this->serverSide->PageOrigin));
+    }
+
+    /**
+     * @return string
+     */
+    public function getCanonicalUrl()
+    {
+        return $this->headInstructions->CanonicalUrl;
+    }
+
+    /**
+     * @return string
+     */
+    public function getRobots()
+    {
+        return $this->headInstructions->MetaRobots;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAbstract()
+    {
+        return $this->pageContent->Abstract;
+    }
+
+    /**
+     * @return string
+     */
+    public function getH1()
+    {
+        return $this->pageContent->H1;
+    }
 
 }

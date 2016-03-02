@@ -7,25 +7,26 @@
  */
 namespace Amara\OneHydra\Http;
 
-interface ResponseInterface {
+interface ResponseInterface
+{
 
-	/**
-	 * @return array
-	 */
-	public function getHeaders();
+    /**
+     * @return array
+     */
+    public function getHeaders();
 
-	/**
-	 * @param array $headers
-	 */
-	public function setHeaders($headers);
+    /**
+     * @param array $headers
+     */
+    public function setHeaders($headers);
 
-	/**
-	 * @return string
-	 */
-	public function getBody();
+    /**
+     * @return string
+     */
+    public function getBody();
 
-	/**
-	 * @param string $body
-	 */
-	public function setBody($body);
+    /**
+     * @param string $body
+     */
+    public function setBody($body);
 }

@@ -9,6 +9,7 @@
 namespace Amara\OneHydra\Exception;
 
 
-class WrongTypeException extends \Exception {
+class WrongTypeException extends \Exception
+{
 
 }
