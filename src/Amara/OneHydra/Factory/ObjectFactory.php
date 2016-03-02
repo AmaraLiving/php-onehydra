@@ -11,32 +11,35 @@ use Amara\OneHydra\Http\ResponseInterface;
 use Amara\OneHydra\Object\PageObject;
 
 
-class ObjectFactory {
+class ObjectFactory
+{
 
-	/** @var PageObjectFactory */
-	private $pageObjectFactory;
+    /** @var PageObjectFactory */
+    private $pageObjectFactory;
 
-	/**
-	 * @param PageObjectFactory $pageObjectFactory
-	 * @return $this
-	 */
-	public function setPageObjectFactory(PageObjectFactory $pageObjectFactory) {
-		$this->pageObjectFactory = $pageObjectFactory;
+    /**
+     * @param PageObjectFactory $pageObjectFactory
+     * @return $this
+     */
+    public function setPageObjectFactory(PageObjectFactory $pageObjectFactory)
+    {
+        $this->pageObjectFactory = $pageObjectFactory;
 
-		return $this;
-	}
+        return $this;
+    }
 
-	/**
-	 * @param ResponseInterface $response
-	 * @param string $type
-	 * @param array $options
-	 * @return PageObject
-	 */
-	public function makeFromResponse(ResponseInterface $response, $type, $options = []) {
-		switch(strtolower($type)) {
-			case 'page':
-				return $this->pageObjectFactory->createFromResponse($response, $options);
-				break;
-		}
-	}
+    /**
+     * @param ResponseInterface $response
+     * @param string $type
+     * @param array $options
+     * @return PageObject
+     */
+    public function makeFromResponse(ResponseInterface $response, $type, $options = [])
+    {
+        switch (strtolower($type)) {
+            case 'page':
+                return $this->pageObjectFactory->createFromResponse($response, $options);
+                break;
+        }
+    }
 }

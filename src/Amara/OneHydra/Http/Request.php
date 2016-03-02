@@ -9,71 +9,78 @@
 namespace Amara\OneHydra\Http;
 
 
-class Request implements RequestInterface{
+class Request implements RequestInterface
+{
 
-	/**
-	 * @var string $service
-	 */
-	private $service;
+    /**
+     * @var string $service
+     */
+    private $service;
 
-	/**
-	 * @var array $params
-	 */
-	private $params;
+    /**
+     * @var array $params
+     */
+    private $params;
 
-	/**
-	 * @var string $method
-	 */
-	private $method;
+    /**
+     * @var string $method
+     */
+    private $method;
 
-	/**
-	 * @return string
-	 */
-	public function getService() {
-		return $this->service;
-	}
+    /**
+     * @return string
+     */
+    public function getService()
+    {
+        return $this->service;
+    }
 
-	/**
-	 * @param string $service
-	 * @return $this
-	 */
-	public function setService($service) {
-		$this->service = $service;
+    /**
+     * @param string $service
+     * @return $this
+     */
+    public function setService($service)
+    {
+        $this->service = $service;
 
-		return $this;
-	}
+        return $this;
+    }
 
-	/**
-	 * @return array
-	 */
-	public function getParams() {
-		return $this->params;
-	}
+    /**
+     * @return array
+     */
+    public function getParams()
+    {
+        return $this->params;
+    }
 
-	/**
-	 * @param array $params
-	 * @return $this
-	 */
-	public function setParams($params) {
-		$this->params = $params;
+    /**
+     * @param array $params
+     * @return $this
+     */
+    public function setParams($params)
+    {
+        $this->params = $params;
 
-		return $this;
-	}
+        return $this;
+    }
 
-	/**
-	 * @return string
-	 */
-	public function getMethod() {
-		return $this->method;
-	}
+    /**
+     * @return string
+     */
+    public function getMethod()
+    {
+        return $this->method;
+    }
 
-	/**
-	 * @param string $method
-	 * @return $this
-	 */
-	public function setMethod($method) {
-		$this->method = $method;
+    /**
+     * @param string $method
+     * @return $this
+     */
+    public function setMethod($method)
+    {
+        $this->method = $method;
 
-		return $this;
-	}
+        return $this;
+    }
 }

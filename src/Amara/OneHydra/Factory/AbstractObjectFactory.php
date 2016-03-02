@@ -10,7 +10,8 @@ namespace Amara\OneHydra\Factory;
 
 use Amara\OneHydra\Http\ResponseInterface;
 
-abstract class AbstractObjectFactory {
+abstract class AbstractObjectFactory
+{
 
-	abstract public function createFromResponse(ResponseInterface $response, $options);
+    abstract public function createFromResponse(ResponseInterface $response, $options);
 }

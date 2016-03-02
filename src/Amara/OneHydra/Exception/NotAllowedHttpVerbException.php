@@ -9,6 +9,7 @@
 namespace Amara\OneHydra\Exception;
 
 
-class NotAllowedHttpVerbException extends\Exception {
+class NotAllowedHttpVerbException extends \Exception
+{
 
 }
