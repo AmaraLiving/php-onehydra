@@ -1,7 +1,7 @@
 {
   "name": "amara/onehydra",
   "description": "A library for working with the OneHydra API",
-  "version": "v0.2.0",
+  "version": "v0.2.1",
   "license": "MIT",
   "authors": [
     {
