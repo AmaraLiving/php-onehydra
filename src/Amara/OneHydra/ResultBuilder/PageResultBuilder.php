@@ -48,10 +48,10 @@ class PageResultBuilder implements ResultBuilderInterface
 
         $rawPage = $data->Page;
 
+        // "Links" can be blank, so we don't check for it
         $requiredProperties = [
             "HeadContent",
             "HeadInstructions",
-            "Links",
             "PageContent",
             "ServerSide",
         ];
