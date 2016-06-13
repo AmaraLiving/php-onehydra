@@ -1,17 +1,23 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: vincenzotrapani
- * Date: 07/07/15
- * Time: 10:47
+
+/*
+ * This file is part of the php-onehydra package.
+ *
+ * (c) Amara Living Ltd
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
 namespace Amara\OneHydra\Http;
 
-
-class Response implements ResponseInterface
+/**
+ * HttpResponse
+ *
+ * @todo use PSR7?
+ */
+class HttpResponse implements HttpResponseInterface
 {
-
     /** @var array */
     private $headers;
 
@@ -51,8 +57,7 @@ class Response implements ResponseInterface
      */
     public function setBody($body)
     {
-        // TODO check the content-type
-        $this->body = \json_decode($body);
+        $this->body = $body;
 
         return $this;
     }

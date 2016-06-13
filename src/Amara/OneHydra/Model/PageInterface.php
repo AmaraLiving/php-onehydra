@@ -1,17 +1,15 @@
 <?php
+namespace Amara\OneHydra\Model;
+
+
 /**
+ * PageInterface
  *
- * @author Vincenzo Trapani <vincenzo.trapani@amara.com>
+ * @todo How much of this structure is Amara-specific?
+ * @todo Remove setters and make this immutable?
  */
-namespace Amara\OneHydra\Object;
-
-interface PageObjectInterface
+interface PageInterface
 {
-
-    CONST MAIN_LINKS_SECTION = 'main links';
-
-    CONST RELATED_LINKS_SECTION = 'related links';
-
     /**
      * @return \stdClass
      */
@@ -29,7 +27,7 @@ interface PageObjectInterface
     public function getHeadInstructions();
 
     /**
-     * @param mixed $headInstructions
+     * @param \stdClass $headInstructions
      * @return $this
      */
     public function setHeadInstructions($headInstructions);
@@ -40,7 +38,7 @@ interface PageObjectInterface
     public function getLinks();
 
     /**
-     * @param mixed $links
+     * @param \stdClass $links
      * @return $this
      */
     public function setLinks($links);
@@ -51,7 +49,7 @@ interface PageObjectInterface
     public function getPageContent();
 
     /**
-     * @param mixed $pageContent
+     * @param \stdClass $pageContent
      * @return $this
      */
     public function setPageContent($pageContent);
@@ -59,21 +57,21 @@ interface PageObjectInterface
     /**
      * @return string
      */
-    public function getPageName();
+    public function getPageUrl();
 
     /**
-     * @param string $pageName
+     * @param string $pageUrl
      * @return $this
      */
-    public function setPageName($pageName);
+    public function setPageUrl($pageUrl);
 
     /**
-     * @return array
+     * @return \stdClass
      */
     public function getServerSide();
 
     /**
-     * @param mixed $serverSide
+     * @param \stdClass $serverSide
      * @return $this
      */
     public function setServerSide($serverSide);

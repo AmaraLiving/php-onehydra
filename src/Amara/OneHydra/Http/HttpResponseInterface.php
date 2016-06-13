@@ -1,15 +1,23 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: vincenzotrapani
- * Date: 06/07/15
- * Time: 17:32
+
+/*
+ * This file is part of the php-onehydra package.
+ *
+ * (c) Amara Living Ltd
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
+
 namespace Amara\OneHydra\Http;
 
-interface ResponseInterface
+/**
+ * HttpResponseInterface
+ *
+ * @todo use PSR7?
+ */
+interface HttpResponseInterface
 {
-
     /**
      * @return array
      */
