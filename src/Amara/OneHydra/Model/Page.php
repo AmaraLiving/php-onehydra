@@ -17,6 +17,7 @@ namespace Amara\OneHydra\Model;
  * A thin wrapper around a page from OneHydra.
  *
  * @todo How much of this structure is Amara-specific?
+ * @todo Remove Amara-specific constants
  */
 class Page implements PageInterface
 {

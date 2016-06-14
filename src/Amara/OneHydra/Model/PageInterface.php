@@ -5,6 +5,8 @@ namespace Amara\OneHydra\Model;
 /**
  * PageInterface
  *
+ * This interface is not stable yet:
+ *
  * @todo How much of this structure is Amara-specific?
  * @todo Remove setters and make this immutable?
  */
@@ -77,11 +79,13 @@ interface PageInterface
     public function setServerSide($serverSide);
 
     /**
+     * @deprecated Remove this as it's likely to be Amara-specific
      * @return array
      */
     public function getMainLinks();
 
     /**
+     * @deprecated Remove this as it's likely to be Amara-specific
      * @return array
      */
     public function getRelatedLinks();

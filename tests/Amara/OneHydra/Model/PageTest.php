@@ -68,10 +68,15 @@ class PageTest extends PHPUnit_Framework_TestCase
     public function testGetters()
     {
         $rawResult = json_decode(self::$bodyJson);
+        $pageUrl = '/my/url';
 
         $resultPage = new Page($rawResult->Page);
+        $resultPage->setPageUrl($pageUrl);
 
         $this->assertInstanceOf(PageInterface::class, $resultPage);
+
+        // Page url
+        $this->assertEquals($pageUrl, $resultPage->getPageUrl());
 
         // Head content
         $this->assertEquals("A meta description", $resultPage->getHeadContent()->MetaDescription);
@@ -87,6 +92,11 @@ class PageTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('Main Links', $links[0]->Key);
         $this->assertEquals('Main link 1', $links[0]->Value[0]->AnchorText);
         $this->assertEquals('Main link 2', $links[0]->Value[1]->AnchorText);
+
+        // Link section
+        $linkSection = $resultPage->getLinkSection('main links');
+        $this->assertEquals('Main link 1', $linkSection[0]->AnchorText);
+        $this->assertEquals('Main link 2', $linkSection[1]->AnchorText);
 
         // Page content
         $this->assertEquals("Page content abstract", $resultPage->getPageContent()->Abstract);
