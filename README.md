@@ -13,7 +13,10 @@ development so will change often.
 Installation
 ------------
 
-Use composer!
+Use composer:
+```
+composer require amara/onehydra
+```
 
 Example usage
 -------------
@@ -21,6 +24,12 @@ Example usage
 The library should be extensible for you:
 
 ```php
+use Amara\OneHydra\Api;
+use Amara\OneHydra\Http\HttpRequestBuilder;
+use Amara\OneHydra\Http\Transport\GuzzleTransport;
+use Amara\OneHydra\ResultBuilder\ResultBuilderEngine;
+use GuzzleHttp\Client;
+
 $isUat = false;
 $authToken = 'your auth token';
 
