@@ -7,7 +7,7 @@ amara/onehydra
 Purpose
 -------
 
-amara/onehydra is a library for working with the OneHydra API from PHP, it's still in 
+amara/onehydra is a library for working with the [OneHydra](http://www.onehydra.com/) API from PHP, it's still in 
 development so will change often. 
 
 Installation
