@@ -1,6 +1,8 @@
 README
 ======
 
+[![Build Status](https://travis-ci.org/AmaraLiving/php-onehydra.svg?branch=master)](https://travis-ci.org/AmaraLiving/php-onehydra)
+
 What is php-onehydra
 --------------------
 
