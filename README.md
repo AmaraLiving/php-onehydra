@@ -1,5 +1,5 @@
-README
-======
+php-onehydra
+============
 
 [![Build Status](https://travis-ci.org/AmaraLiving/php-onehydra.svg?branch=master)](https://travis-ci.org/AmaraLiving/php-onehydra)
 [![Coverage Status](https://coveralls.io/repos/github/AmaraLiving/php-onehydra/badge.svg?branch=master)](https://coveralls.io/github/AmaraLiving/php-onehydra?branch=master)
