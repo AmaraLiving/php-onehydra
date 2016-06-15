@@ -1,13 +1,13 @@
-php-onehydra
-============
+amara/onehydra
+==============
 
 [![Build Status](https://travis-ci.org/AmaraLiving/php-onehydra.svg?branch=master)](https://travis-ci.org/AmaraLiving/php-onehydra)
 [![Coverage Status](https://coveralls.io/repos/github/AmaraLiving/php-onehydra/badge.svg?branch=master)](https://coveralls.io/github/AmaraLiving/php-onehydra?branch=master)
 
-What is php-onehydra
---------------------
+Purpose
+-------
 
-php-onehydra is a library for working with the OneHydra API from PHP, it's still in 
+amara/onehydra is a library for working with the OneHydra API from PHP, it's still in 
 development so will change often. 
 
 Installation
@@ -36,7 +36,7 @@ $authToken = 'your auth token';
 // Use the standard request builder
 $httpRequestBuilder = new HttpRequestBuilder($isUat, $authToken);
 
-// Create a Guzzle transport
+// Create a Guzzle transport, in UAT you'll need to ignore the OneHydra SSL cert
 $guzzleClient = new Client();
 $transport = new GuzzleTransport($guzzleClient);
 
