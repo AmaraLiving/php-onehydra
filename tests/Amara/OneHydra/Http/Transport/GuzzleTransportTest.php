@@ -20,14 +20,14 @@ use GuzzleHttp\Message\MessageInterface;
 use GuzzleHttp\Message\Request as GuzzleRequest;
 
 /**
- * Class GuzzleTransportTest
- *
- * @package Amara\OneHydra\Http\Transport
+ * GuzzleTransportTest
+ * 
  * @coversDefaultClass Amara\OneHydra\Http\Transport
  */
 class GuzzleTransportTest extends \PHPUnit_Framework_TestCase
 {
     /**
+     * @covers Amara\OneHydra\Http\Transport\GuzzleTransport::__construct
      * @covers Amara\OneHydra\Http\Transport\GuzzleTransport::execute
      */
     public function testExecuteWhenOkay()
@@ -66,6 +66,7 @@ class GuzzleTransportTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers Amara\OneHydra\Http\Transport\GuzzleTransport::__construct
      * @covers Amara\OneHydra\Http\Transport\GuzzleTransport::execute
      */
     public function testExecuteWhenGuzzleThrowsException()
