@@ -91,10 +91,10 @@ class ApiTest extends PHPUnit_Framework_TestCase
                 $expectedParams = [],
             ],
             [
-                $since = new \DateTime('2016-05-28 13:33:47'),
+                $since = new \DateTime('2016-05-28 13:33:47+00:00'),
                 $count = 4,
                 $expectedParams = [
-                    'since' => '2016-05-28T13:33:47+01:00',
+                    'since' => '2016-05-28T13:33:47+00:00',
                     'count' => 4,
                 ],
             ],
