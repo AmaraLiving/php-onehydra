@@ -31,6 +31,10 @@ class IntegrationTest extends PHPUnit_Framework_TestCase
         $authToken = 'foo';
 
         $expectedPageUrls = ['https://www.example.com/foo', 'https://www.example.com/bar'];
+        $head = '{"Head":[
+            {"MetaDescription":"A meta description"},
+            {"Title":"A title"}
+        ]}';
         $body = '{"Pages":{
             "PageUrls":[
                 "https:\/\/www.example.com\/foo",
@@ -39,6 +43,7 @@ class IntegrationTest extends PHPUnit_Framework_TestCase
         }}';
 
         $responseMock = new HttpResponse();
+        $responseMock->setHeaders(json_decode($head)->Head);
         $responseMock->setBody($body);
 
         $transportMock = $this->prophesize(TransportInterface::class);
@@ -61,6 +66,12 @@ class IntegrationTest extends PHPUnit_Framework_TestCase
         $api = new Api($httpRequestBuilder, $transportMock->reveal(), $resultBuilderEngine);
 
         $pagesResult = $api->getPagesResult();
+
+        $expectedHttpResponse = new HttpResponse();
+        $expectedHttpResponse->setHeaders(json_decode($head)->Head);
+        $expectedHttpResponse->setBody($body);
+
+        $this->assertEquals($expectedHttpResponse , $pagesResult->getHttpResponse());
 
         $this->assertEquals($expectedPageUrls, $pagesResult->getPageUrls());
     }
@@ -136,8 +147,6 @@ class IntegrationTest extends PHPUnit_Framework_TestCase
         $httpRequestBuilder = new HttpRequestBuilder($isUat, $authToken);
 
         $resultBuilderEngine = new ResultBuilderEngine();
-        $resultBuilderEngine->addBuilder(new PageResultBuilder());
-        $resultBuilderEngine->addBuilder(new PagesResultBuilder());
 
         $api = new Api($httpRequestBuilder, $transportMock->reveal(), $resultBuilderEngine);
 

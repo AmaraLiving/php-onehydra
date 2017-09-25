@@ -12,7 +12,6 @@
 namespace Amara\OneHydra\ResultBuilder;
 
 use Amara\OneHydra\Model\Page;
-use Amara\OneHydra\Model\PageInterface;
 use PHPUnit_Framework_TestCase;
 
 class PageTest extends PHPUnit_Framework_TestCase
@@ -29,7 +28,7 @@ class PageTest extends PHPUnit_Framework_TestCase
         },
         "Links":[
             {
-                "Key":"Main Links",
+                "Key":"main links",
                 "Value":[
                     {
                         "AnchorText":"Main link 1",
@@ -39,6 +38,21 @@ class PageTest extends PHPUnit_Framework_TestCase
                     {
                         "AnchorText":"Main link 2",
                         "DestinationUrl":"https:\/\/www.example.com\/link-2",
+                        "Order":2
+                    }
+                ]
+            },
+            {
+                "Key":"related links",
+                "Value":[
+                    {
+                        "AnchorText":"Related link 1",
+                        "DestinationUrl":"https:\/\/www.example.com\/related-link-1",
+                        "Order":1
+                    },
+                    {
+                        "AnchorText":"Related link 2",
+                        "DestinationUrl":"https:\/\/www.example.com\/relatedlink-2",
                         "Order":2
                     }
                 ]
@@ -61,47 +75,209 @@ class PageTest extends PHPUnit_Framework_TestCase
             "PageOrigin":"Existing",
             "PreexistingUrl":null,
             "RedirectCode":200,
-            "RedirectTargetUrl":null
+            "RedirectTargetUrl":"https:\/\/www.example.com"
         }
     }}';
 
-    public function testGetters()
+    private static $newBodyJson = '{"Page":{
+        "HeadContent":{
+            "MetaDescription":"A more meta description",
+            "MetaKeywords":"Some extra meta keywords",
+            "Title":"A better title"
+        },
+        "HeadInstructions":{
+            "CanonicalUrl":"https://www.another.example.com/canonical",
+            "MetaRobots":"RETURN, FOLLOW"
+        },
+        "Links":[
+            {
+                "Key":"Major Links",
+                "Value":[
+                    {
+                        "AnchorText":"Major link 1",
+                        "DestinationUrl":"https:\/\/www.another.example.com\/link-1",
+                        "Order":1
+                    },
+                    {
+                        "AnchorText":"Major link 2",
+                        "DestinationUrl":"https:\/\/www.another.example.com\/link-2",
+                        "Order":2
+                    }
+                ]
+            }
+        ],
+        "PageContent":{
+            "Abstract":"More abstract page content",
+            "General":[{
+                "Key":"Custard Field 1",
+                "Value":"Custard Value 1"
+            }],
+            "H1":""
+        },
+        "Products": [
+            {"ProductCode":"200"},
+            {"ProductCode":"300"},
+            {"ProductCode":"400"}
+        ],
+        "ServerSide":{
+            "PageOrigin":"Suggested",
+            "PreexistingUrl":true,
+            "RedirectCode":503,
+            "RedirectTargetUrl":"https:\/\/www.another.example.com"
+        }
+    }}';
+
+    /**
+     * @var Page
+     */
+    private $resultPage;
+
+    /**
+     * @var \stdClass
+     */
+    private $initialPageBody;
+
+    /**
+     * @var \stdClass
+     */
+    private $newPageBody;
+
+    public function setUp() {
+        $initialPageBody = json_decode(self::$bodyJson)->Page;
+
+        $this->initialPageBody = $initialPageBody;
+        $this->resultPage = new Page($initialPageBody);
+
+        $this->newPageBody = json_decode(self::$newBodyJson)->Page;
+    }
+
+    /**
+     * @covers Amara\OneHydra\Model\Page::getHeadContent
+     * @covers Amara\OneHydra\Model\Page::getDescription
+     * @covers Amara\OneHydra\Model\Page::getKeywords
+     * @covers Amara\OneHydra\Model\Page::getTitle
+     * @covers Amara\OneHydra\Model\Page::setHeadContent
+     */
+    public function testHeadContentGettersAndSetter()
     {
-        $rawResult = json_decode(self::$bodyJson);
-        $pageUrl = '/my/url';
+        $resultPage = $this->resultPage;
 
-        $resultPage = new Page($rawResult->Page);
-        $resultPage->setPageUrl($pageUrl);
+        $this->assertEquals($this->initialPageBody->HeadContent, $resultPage->getHeadContent());
 
-        $this->assertInstanceOf(PageInterface::class, $resultPage);
+        $this->assertEquals('A meta description', $resultPage->getDescription());
+        $this->assertEquals('Some meta keywords', $resultPage->getKeywords());
+        $this->assertEquals('A title', $resultPage->getTitle());
 
-        // Page url
-        $this->assertEquals($pageUrl, $resultPage->getPageUrl());
+        $newHeadContent = $this->newPageBody->HeadContent;
+        $resultPage->setHeadContent($newHeadContent);
+        $this->assertEquals($newHeadContent, $resultPage->getHeadContent());
+    }
 
-        // Head content
-        $this->assertEquals("A meta description", $resultPage->getHeadContent()->MetaDescription);
-        $this->assertEquals("Some meta keywords", $resultPage->getHeadContent()->MetaKeywords);
-        $this->assertEquals("A title", $resultPage->getHeadContent()->Title);
+    /**
+     * @covers Amara\OneHydra\Model\Page::getHeadInstructions
+     * @covers Amara\OneHydra\Model\Page::getCanonicalUrl
+     * @covers Amara\OneHydra\Model\Page::getRobots
+     * @covers Amara\OneHydra\Model\Page::setHeadInstructions
+     */
+    public function testHeadInstructionsGettersAndSetter()
+    {
+        $resultPage = $this->resultPage;
 
-        // Head instructions
-        $this->assertEquals("https://www.example.com/canonical", $resultPage->getHeadInstructions()->CanonicalUrl);
-        $this->assertEquals("INDEX, FOLLOW", $resultPage->getHeadInstructions()->MetaRobots);
+        $this->assertEquals($this->initialPageBody->HeadInstructions, $resultPage->getHeadInstructions());
 
-        // Links
-        $links = $resultPage->getLinks();
-        $this->assertEquals('Main Links', $links[0]->Key);
-        $this->assertEquals('Main link 1', $links[0]->Value[0]->AnchorText);
-        $this->assertEquals('Main link 2', $links[0]->Value[1]->AnchorText);
+        $this->assertEquals('https://www.example.com/canonical', $resultPage->getCanonicalUrl());
+        $this->assertEquals('INDEX, FOLLOW', $resultPage->getRobots());
 
-        // Link section
-        $linkSection = $resultPage->getLinkSection('main links');
-        $this->assertEquals('Main link 1', $linkSection[0]->AnchorText);
-        $this->assertEquals('Main link 2', $linkSection[1]->AnchorText);
+        $newHeadInstructions = $this->newPageBody->HeadInstructions;
+        $resultPage->setHeadInstructions($newHeadInstructions);
+        $this->assertEquals($newHeadInstructions, $resultPage->getHeadInstructions());
 
-        // Page content
-        $this->assertEquals("Page content abstract", $resultPage->getPageContent()->Abstract);
+    }
 
-        // Server side
-        $this->assertEquals("Existing", $resultPage->getServerSide()->PageOrigin);
+    /**
+     * @covers Amara\OneHydra\Model\Page::getLinks
+     * @covers Amara\OneHydra\Model\Page::getMainLinks
+     * @covers Amara\OneHydra\Model\Page::getRelatedLinks
+     * @covers Amara\OneHydra\Model\Page::getLinkSection
+     * @covers Amara\OneHydra\Model\Page::setLinks
+     */
+    public function testLinksGettersAndSetter()
+    {
+        $resultPage = $this->resultPage;
+
+        $initialLinks = $this->initialPageBody->Links;
+
+        $this->assertEquals($initialLinks, $resultPage->getLinks());
+
+        $this->assertEquals($initialLinks[0]->Value, $resultPage->getMainLinks());
+        $this->assertEquals($initialLinks[1]->Value, $resultPage->getRelatedLinks());
+
+        $newLinks = $this->newPageBody->Links;
+        $resultPage->setLinks($newLinks);
+        $this->assertEquals($newLinks, $resultPage->getLinks());
+
+        $this->assertEquals([], $resultPage->getRelatedLinks());
+    }
+
+    /**
+     * @covers Amara\OneHydra\Model\Page::getPageContent
+     * @covers Amara\OneHydra\Model\Page::getAbstract
+     * @covers Amara\OneHydra\Model\Page::getH1
+     * @covers Amara\OneHydra\Model\Page::setPageContent
+     */
+    public function testPageContentGettersAndSetter()
+    {
+        $resultPage = $this->resultPage;
+
+        $this->assertEquals($this->initialPageBody->PageContent, $resultPage->getPageContent());
+
+        $this->assertEquals('Page content abstract', $resultPage->getAbstract());
+        $this->assertEquals('Page content H1', $resultPage->getH1());
+
+        $newPageContent = $this->newPageBody->PageContent;
+        $resultPage->setPageContent($newPageContent);
+        $this->assertEquals($newPageContent, $resultPage->getPageContent());
+    }
+
+    /**
+     * @covers Amara\OneHydra\Model\Page::getServerSide
+     * @covers Amara\OneHydra\Model\Page::getRedirectCode
+     * @covers Amara\OneHydra\Model\Page::getRedirectUrl
+     * @covers Amara\OneHydra\Model\Page::setServerSide
+     * @covers Amara\OneHydra\Model\Page::isSuggested
+     */
+    public function testServerSideGettersAndSetter()
+    {
+        $resultPage = $this->resultPage;
+
+        $this->assertEquals($this->initialPageBody->ServerSide, $resultPage->getServerSide());
+
+        // getRedirectCode
+        $this->assertEquals('200', $resultPage->getRedirectCode());
+        // getRedirectUrl
+        $this->assertEquals('https://www.example.com', $resultPage->getRedirectUrl());
+
+        // isSuggested where PageOrigin is not 'suggested'
+        $this->assertFalse($resultPage->isSuggested());
+
+        // setServerSide
+        $newServerSide = $this->newPageBody->ServerSide;
+        $resultPage->setServerSide($newServerSide);
+        $this->assertEquals($newServerSide, $resultPage->getServerSide());
+
+        // isSuggested where PageOrigin is 'suggested'
+        $this->assertTrue($resultPage->isSuggested());
+    }
+
+    /**
+     * @covers Amara\OneHydra\Model\Page::getPageUrl
+     * @covers Amara\OneHydra\Model\Page::setPageUrl
+     */
+    public function testPageUrlGetterAndSetter()
+    {
+        $resultPage = $this->resultPage;
+        $this->assertEmpty($resultPage->getPageUrl());
+        $resultPage->setPageUrl('https://www.example.page.url.com');
+        $this->assertEquals('https://www.example.page.url.com', $resultPage->getPageUrl());
     }
 }
