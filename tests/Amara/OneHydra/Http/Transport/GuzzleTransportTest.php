@@ -16,12 +16,13 @@ use Amara\OneHydra\Http\HttpRequestInterface;
 use Amara\OneHydra\Http\Transport\GuzzleTransport;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
-use GuzzleHttp\Message\MessageInterface;
-use GuzzleHttp\Message\Request as GuzzleRequest;
+use GuzzleHttp\Psr7\Request;
+use Prophecy\Argument;
+use Psr\Http\Message\MessageInterface;
 
 /**
  * GuzzleTransportTest
- * 
+ *
  * @coversDefaultClass Amara\OneHydra\Http\Transport
  */
 class GuzzleTransportTest extends \PHPUnit_Framework_TestCase
@@ -32,7 +33,7 @@ class GuzzleTransportTest extends \PHPUnit_Framework_TestCase
      */
     public function testExecuteWhenOkay()
     {
-        $method = 'get';
+        $method = 'GET';
         $url = '/foo';
         $params = ['oh' => 'hai'];
         $headers = ['oh' => 'really'];
@@ -41,22 +42,26 @@ class GuzzleTransportTest extends \PHPUnit_Framework_TestCase
         $responseHeaders = ['went' => 'great'];
 
         $request = $this->getRequestMock($url, $params, $headers, $method);
-        $guzzleRequest = $this->prophesize(GuzzleRequest::class);
 
         $guzzleResponse = $this->prophesize(MessageInterface::class);
         $guzzleResponse->getBody()->willReturn($responseBody);
         $guzzleResponse->getHeaders()->willReturn($responseHeaders);
 
         $guzzleClient = $this->prophesize(Client::class);
-        $guzzleClient->createRequest(
-            $method,
-            $url,
-            [
-                'query' => $params,
-                'headers' => $headers
-            ]
-        )->willReturn($guzzleRequest);
-        $guzzleClient->send($guzzleRequest)->willReturn($guzzleResponse);
+        $guzzleClient->send(
+            Argument::that(
+                function (Request $request) use ($method, $url, $headers) {
+                    $this->assertEquals($method, $request->getMethod());
+                    $this->assertEquals($url, $request->getUri());
+                    $this->assertEquals(
+                        $headers,
+                        $request->getHeaders()['headers']
+                    );
+
+                    return true;
+                }
+            )
+        )->willReturn($guzzleResponse);
 
         $guzzleTransport = new GuzzleTransport($guzzleClient->reveal());
         $httpResponse = $guzzleTransport->execute($request);
@@ -79,9 +84,12 @@ class GuzzleTransportTest extends \PHPUnit_Framework_TestCase
         $this->setExpectedException(HttpTransportException::class);
 
         $request = $this->getRequestMock($url, $params, $headers, $method);
-        $guzzleClient = $this->getGuzzleClientMock(RequestException::class, $url, $params, $headers, $method);
+        $guzzleClient = $this->prophesize(Client::class);
+        $guzzleClient->send(Argument::type(Request::class))->willThrow(
+            RequestException::class
+        );
 
-        $guzzleTransport = new GuzzleTransport($guzzleClient);
+        $guzzleTransport = new GuzzleTransport($guzzleClient->reveal());
         $guzzleTransport->execute($request);
     }
 
@@ -92,6 +100,7 @@ class GuzzleTransportTest extends \PHPUnit_Framework_TestCase
      * @param array $params
      * @param array $headers
      * @param string $method
+     *
      * @return HttpRequestInterface
      */
     private function getRequestMock($url = '/foo', $params = [], $headers = [], $method = 'get')
@@ -104,31 +113,4 @@ class GuzzleTransportTest extends \PHPUnit_Framework_TestCase
 
         return $request->reveal();
     }
-
-    /**
-     * Gets a guzzle request Mock
-     *
-     * @param mixed $response
-     * @param string $method
-     * @param string $url
-     * @param array $params
-     * @param array $headers
-     * @return Client
-     */
-    private function getGuzzleClientMock($response, $url = '/foo', $params = [], $headers = [], $method = 'get')
-    {
-        $guzzleRequest = $this->prophesize(GuzzleRequest::class);
-        
-        $guzzleClient = $this->prophesize(Client::class);
-        $guzzleClient
-            ->createRequest($method, $url, [
-                'query' => $params,
-                'headers' => $headers
-            ])
-            ->willReturn($guzzleRequest);
-        $guzzleClient->send($guzzleRequest)->willThrow($response);
-
-        return $guzzleClient->reveal();
-    }
-
 }

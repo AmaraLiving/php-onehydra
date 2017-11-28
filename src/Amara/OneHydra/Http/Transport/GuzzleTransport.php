@@ -16,6 +16,7 @@ use Amara\OneHydra\Http\HttpRequestInterface;
 use Amara\OneHydra\Http\HttpResponse;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
+use GuzzleHttp\Psr7\Request;
 
 /**
  * GuzzleTransport
@@ -40,7 +41,7 @@ class GuzzleTransport implements TransportInterface
      */
     public function execute(HttpRequestInterface $request)
     {
-        $guzzleRequest = $this->guzzleClient->createRequest(
+        $guzzleRequest = new Request(
             $request->getMethod(),
             $request->getUrl(),
             [
