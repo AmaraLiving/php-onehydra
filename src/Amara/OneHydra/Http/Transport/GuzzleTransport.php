@@ -44,17 +44,14 @@ class GuzzleTransport implements TransportInterface
         $guzzleRequest = new Request(
             $request->getMethod(),
             $request->getUrl(),
-            [
-                'query' => $request->getParams(),
-                'headers' => $request->getHeaders(),
-            ]
+            $request->getHeaders()
         );
 
         try {
-            $clientResponse = $this->guzzleClient->send($guzzleRequest);
+            $clientResponse = $this->guzzleClient->send($guzzleRequest, ['query' => $request->getParams()]);
         } catch (RequestException $e) {
             // Re-throw guzzle exception as our own
-            throw new HttpTransportException("Guzzle exception", 0, $e);
+            throw new HttpTransportException('Guzzle exception', 0, $e);
         }
 
         return (new HttpResponse())

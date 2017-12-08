@@ -36,7 +36,7 @@ class GuzzleTransportTest extends \PHPUnit_Framework_TestCase
         $method = 'GET';
         $url = '/foo';
         $params = ['oh' => 'hai'];
-        $headers = ['oh' => 'really'];
+        $headers = ['oh' => ['really']];
 
         $responseBody = '{}';
         $responseHeaders = ['went' => 'great'];
@@ -55,12 +55,12 @@ class GuzzleTransportTest extends \PHPUnit_Framework_TestCase
                     $this->assertEquals($url, $request->getUri());
                     $this->assertEquals(
                         $headers,
-                        $request->getHeaders()['headers']
+                        $request->getHeaders()
                     );
 
                     return true;
                 }
-            )
+            ), ['query' => $params]
         )->willReturn($guzzleResponse);
 
         $guzzleTransport = new GuzzleTransport($guzzleClient->reveal());
@@ -85,7 +85,7 @@ class GuzzleTransportTest extends \PHPUnit_Framework_TestCase
 
         $request = $this->getRequestMock($url, $params, $headers, $method);
         $guzzleClient = $this->prophesize(Client::class);
-        $guzzleClient->send(Argument::type(Request::class))->willThrow(
+        $guzzleClient->send(Argument::type(Request::class), ['query' => $params])->willThrow(
             RequestException::class
         );
 
